@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Welcome to CourseFinder</h1>
+    <p>Find the perfect course for you based on your personality!</p>
+    <a href="{{ url_for('quiz') }}" class="cta-button">Take the Quiz</a>
+</section>
+{% endblock %}

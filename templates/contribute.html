@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="contribute-form">
+        <h1>Contribute Your Course Feedback</h1>
+        <form action="{{ url_for('contribute') }}" method="POST">
+            <label for="course-name">Course Name:</label>
+            <input type="text" id="course-name" name="course_name" required placeholder="Enter the course name">
+
+            <label for="difficulty">Difficulty (1 = Easy, 5 = Hard):</label>
+            <input type="range" id="difficulty" name="difficulty" min="1" max="5" step="1" value="3">
+            <span id="difficulty-value">3</span>
+
+            <label for="attributes">Course Attributes (e.g., workload, pace, teaching quality):</label>
+            <textarea id="attributes" name="attributes" rows="4" placeholder="Describe the course attributes..." required></textarea>
+
+            <label for="structure">Course Structure (e.g., lectures, assignments, exams):</label>
+            <textarea id="structure" name="structure" rows="4" placeholder="Describe the course structure..." required></textarea>
+
+            <label for="enjoyability">Enjoyability (1 = Not Enjoyable, 5 = Very Enjoyable):</label>
+            <input type="number" id="enjoyability" name="enjoyability" min="1" max="5" step="1" value="3" required>
+
+            <label for="recommendation">Would you recommend this course? (Yes/No):</label>
+            <select id="recommendation" name="recommendation">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <button type="submit" class="cta-button">Submit Feedback</button>
+        </form>
+    </section>
+{% endblock %}

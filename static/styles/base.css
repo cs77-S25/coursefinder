@@ -1,0 +1,192 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Softer background color */
+    color: #2c3e50; /* Slightly darker text for better readability */
+}
+
+/* Navbar Styling */
+nav {
+    display: flex;
+    justify-content: center; /* Center the entire navbar content */
+    align-items: center;
+    background-color: #1f3a56; /* Darker blue for more balance */
+    padding: 1.5rem 3rem; /* Increased padding for prominence */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    flex-wrap: wrap; /* Allow the navbar content to wrap on smaller screens */
+}
+
+/* Logo Styling */
+.logo {
+    position: absolute; /* Make logo float left */
+    left: 3rem; /* Adjust for padding */
+}
+
+.logo img {
+    height: 60px; /* Larger size for better branding */
+    transition: transform 0.3s ease-in-out;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+
+/* Navbar Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px; /* More spacing */
+    padding: 0;
+    margin: 0; /* Remove default margin */
+    justify-content: center; /* Center the links */
+    flex-grow: 1; /* Allow the links to take up available space */
+}
+
+/* Navbar Links - Individual Link Styling */
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #f1c40f; /* Softer gold for better harmony */
+    font-weight: bold;
+    font-size: 17px;
+    padding: 10px 18px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Enhanced Hover Effect */
+.nav-links a:hover {
+    color: #1f3a56; /* Dark Blue */
+    background-color: #f1c40f; /* Softer Gold */
+    transform: scale(1.1);
+    box-shadow: 0px 5px 15px rgba(241, 196, 15, 0.6); /* Gold shadow */
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+    background: linear-gradient(135deg, #f1c40f, #e67e22); /* Slightly softer gradient */
+    color: #1f3a56; /* Dark Blue text */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+/* Call-to-Action Button */
+.cta-button {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #1f3a56; /* Dark Blue */
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.cta-button:hover {
+    background-color: white;
+    color: #1f3a56; /* Dark Blue */
+    border: 2px solid #1f3a56; /* Dark Blue border */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #1f3a56; /* Dark Blue */
+    color: white;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo img {
+        height: 50px;
+    }
+}
+/* Contribution Page Styles */
+.contribute-form {
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contribute-form h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button.cta-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    background-color: #1f3a56;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.cta-button:hover {
+    background-color: #f1c40f;
+    color: #1f3a56;
+}
+
