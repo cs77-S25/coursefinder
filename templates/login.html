@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <div class="login-containter">
+        <h1>Login Here</h1>
+        <form action="/login" method="POST">
+            <div class="question">
+                <label for="login">Getting started is simple! Just verify that you actually attend Swarthmore</label>
+                <textarea id="login" name="login" rows="1" placeholder="Provide your swarthmore.edu email here"></textarea>
+            </div>
+            <button type="submit" class="cta-button">Verify and Sign Up</button>
+            <div class="question">
+                <label for="login">Returning user? Enter your Swarthmore ID prefix to login</label>
+                <textarea id="login" name="login" rows="1" placeholder="Enter Swarthmore ID prefix (ex. 'student1')"></textarea>
+            </div>
+            <button type="submit" class="cta-button">Login</button>
+        </form>
+        
+    </div>
+</main>
+
+<!-- Add the necessary links to the CSS and JS files -->
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
+{% endblock %}
