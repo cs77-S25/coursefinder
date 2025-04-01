@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CourseFinder</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
-    <script src="{{ url_for('static', filename='js/slider.js') }}" defer></script> <!-- External JS -->
+    <script src="{{ url_for('static', filename='js/base.js') }}" defer></script> 
 </head>
 <body>
     <header>
@@ -13,11 +13,11 @@
             <div class="logo">
                 <img src="{{ url_for('static', filename='logo.png') }}" alt="CourseFinder Logo">
             </div>
-            <ul class="nav-links">
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('contribute') }}">Contribute</a></li>
-                <li><a href="{{ url_for('quiz') }}">Take the Quiz</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
+            <ul class="nav-links">  
+                <li><a href="{{ url_for('home') }}" {% if active=="home" %} class="active" {% endif %}>Home</a></li>
+                <li><a href="{{ url_for('contribute') }}" {% if active=="contribute" %} class="active" {% endif %}>Contribute</a></li>
+                <li><a href="{{ url_for('quiz') }}" {% if active=="quiz" %} class="active" {% endif %}>Take the Quiz</a></li>
+                <li><a href="{{ url_for('login') }}" {% if active=="login" %} class="active" {% endif %}>Login</a></li>
             </ul>
         </nav>
     </header>

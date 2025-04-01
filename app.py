@@ -26,19 +26,19 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', active="home")
 
 @app.route('/contribute')
 def contribute():
-    return render_template('contribute.html')
+    return render_template('contribute.html', active="contribute")
 
 @app.route('/quiz')
 def quiz():
-    return render_template('quiz.html')
+    return render_template('quiz.html', active="quiz")
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', active="login")
 
 # @app.route('/thread/<int:thread_id>')
 # def thread(thread_id):
