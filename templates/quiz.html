@@ -20,13 +20,13 @@
 
             <!-- Subjects Enjoyment -->
             <div class="question">
-                <label>Which Harry Styles era is your favorite?</label>
+                <label>Who is your favorite member of One Direction?</label>
                 <ul class="styled-list">
-                    <li><input type="checkbox" id="writing" name="subject" value="writing"><label for="writing">Frat Boy Harry</label></li>
-                    <li><input type="checkbox" id="debating" name="subject" value="debating"><label for="debating">Prince Harry</label></li>
-                    <li><input type="checkbox" id="coding" name="subject" value="coding"><label for="coding">Baby Harry</label></li>
-                    <li><input type="checkbox" id="painting" name="subject" value="painting"><label for="painting">Dunkirk Harry</label></li>
-                    <li><input type="checkbox" id="research" name="subject" value="research"><label for="research">Long Hair Harry</label></li>
+                    <li><input type="checkbox" id="writing" name="subject" value="writing" data-descriptor="steady"><label for="writing">Harry</label></li>
+                    <li><input type="checkbox" id="debating" name="subject" value="debating" data-descriptor="goofy"><label for="debating">Louis</label></li>
+                    <li><input type="checkbox" id="coding" name="subject" value="coding" data-descriptor="authoritarian"><label for="coding">Liam</label></li>
+                    <li><input type="checkbox" id="painting" name="subject" value="painting" data-descriptor="reserved"><label for="painting">Zayn</label></li>
+                    <li><input type="checkbox" id="research" name="subject" value="research" data-descriptor="energetic"><label for="research">Niall</label></li>
                     <!-- Add more subjects as needed -->
                 </ul>
             </div>
@@ -45,9 +45,9 @@
             <div class="question">
                 <label>What kind of pants do you prefer?</label>
                 <div class="radio-buttons">
-                    <input type="radio" id="group" name="environment" value="group" required><label for="group">Big</label>
-                    <input type="radio" id="independent" name="environment" value="independent"><label for="independent">Painted on</label>
-                    <input type="radio" id="mixed" name="environment" value="mixed"><label for="mixed">Off</label>
+                    <input type="radio" id="group" name="environment" value="group" data-descriptor="fashionable" required><label for="group">Big</label>
+                    <input type="radio" id="independent" name="environment" value="independent" data-descriptor="up-tight"><label for="independent">Fitted</label>
+                    <input type="radio" id="mixed" name="environment" value="mixed" data-descriptor="edgy"><label for="mixed">Ripped</label>
                 </div>
             </div>
 
@@ -65,10 +65,10 @@
             <div class="question">
                 <label>What is your favorite tree?</label>
                 <ul class="styled-list">
-                    <li><input type="radio" id="grades" name="motivation" value="grades"><label for="grades">Family</label></li>
-                    <li><input type="radio" id="curiosity" name="motivation" value="curiosity"><label for="curiosity">Maple</label></li>
-                    <li><input type="radio" id="career" name="motivation" value="career"><label for="career">Oak</label></li>
-                    <li><input type="radio" id="passion" name="motivation" value="passion"><label for="passion">Pine</label></li>
+                    <li><input type="radio" id="grades" name="motivation" value="grades" data-descriptor="sarcastic"><label for="grades">Family</label></li>
+                    <li><input type="radio" id="curiosity" name="motivation" value="curiosity" data-descriptor="homey"><label for="curiosity">Maple</label></li>
+                    <li><input type="radio" id="career" name="motivation" value="career" data-descriptor=""><label for="hard-working">Oak</label></li>
+                    <li><input type="radio" id="passion" name="motivation" value="passion" data-descriptor=""><label for="bougie">Pine</label></li>
                 </ul>
             </div>
 
@@ -76,9 +76,9 @@
             <div class="question">
                 <label for="personality">How do you usually react to being yelled at?</label>
                 <div class="radio-buttons">
-                    <input type="radio" id="calm" name="personality" value="calm" required><label for="calm">Stay </label>
-                    <input type="radio" id="anxious" name="personality" value="anxious"><label for="anxious">Cry</label>
-                    <input type="radio" id="stressed" name="personality" value="stressed"><label for="stressed">Turn violent</label>
+                    <input type="radio" id="calm" name="personality" value="calm" data-descriptor="calm" required><label for="calm">Be calm </label>
+                    <input type="radio" id="anxious" name="personality" value="anxious" data-descriptor="emotional"><label for="anxious">Cry</label>
+                    <input type="radio" id="stressed" name="personality" value="stressed" data-descriptor="temperamental"><label for="stressed">Turn violent</label>
                 </div>
             </div>
 
@@ -86,10 +86,10 @@
             <div class="question">
                 <label>Which color Doritos do you prefer?</label>
                 <div class="radio-buttons">
-                    <input type="radio" id="study-group" name="study_group" value="study-group" required><label for="study-group">Red</label>
-                    <input type="radio" id="alone" name="study_group" value="alone"><label for="alone">Blue</label>
-                    <input type="radio" id="both" name="study_group" value="both"><label for="both">Purple</label>
-                    <input type="radio" id="both" name="study_group" value="both"><label for="both">Spicy Red</label>
+                    <input type="radio" id="study-group" name="study_group" value="study-group" data-descriptor="well-adjusted" required><label for="study-group">Red</label>
+                    <input type="radio" id="alone" name="study_group" value="alone" data-descriptor="try-hard"><label for="alone">Blue</label>
+                    <input type="radio" id="both" name="study_group" value="both" data-descriptor="reserved"><label for="both">Purple</label>                
+                    <input type="radio" id="both" name="study_group" value="both" data-descriptor="adventerous"><label for="both">Spicy Red</label>
                 </div>
             </div>
 
@@ -97,20 +97,21 @@
             <div class="question">
                 <label for="study-method">Which of the following would you most like to jump in?</label>
                 <ul class="styled-list">
-                    <li><input type="checkbox" id="notes" name="study_method" value="notes"><label for="notes">Ball Pit</label></li>
-                    <li><input type="checkbox" id="practice" name="study_method" value="practice"><label for="practice">Jello</label></li>
-                    <li><input type="checkbox" id="flashcards" name="study_method" value="flashcards"><label for="flashcards">Orbeez</label></li>
-                    <li><input type="checkbox" id="group-study" name="study_method" value="group-study"><label for="group-study">Slime</label></li>
+                    <li><input type="checkbox" id="notes" name="study_method" value="notes" data-descriptor="basic"><label for="notes">Ball Pit</label></li>
+                    <li><input type="checkbox" id="practice" name="study_method" value="practice" data-descriptor="hungry"><label for="practice">Jello</label></li>
+                    <li><input type="checkbox" id="flashcards" name="study_method" value="flashcards" data-descriptor="nonchalant"><label for="flashcards">Orbeez</label></li>
+                    <li><input type="checkbox" id="group-study" name="study_method" value="group-study" data-descriptor="dirty"><label for="group-study">Slime</label></li>
                 </ul>
             </div>
 
             <!-- Final Thoughts -->
             <div class="question">
-                <label for="interest">What type of house would you like to live in?</label>
-                <textarea id="interest" name="interest" rows="4" placeholder="Describe your goals and interests in pursuing courses."></textarea>
+                <label for="interest">If you could go anywhere in the world where would you go?</label>
+                <textarea id="interest" name="interest" rows="4" placeholder="Describe your ideal vacation"></textarea>
             </div>
 
             <button type="submit" class="cta-button">Submit Quiz</button>
+            <input type="hidden" id="personality_embedding_input" name="personality_embedding">
         </form>
     </div>
 </main>
