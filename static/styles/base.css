@@ -6,6 +6,7 @@ body {
     background-color: #f9f9f9; /* Softer background color */
     color: #2c3e50; /* Slightly darker text for better readability */
     align-items: center;
+    overflow-x: hidden; 
 }
 h4{
     text-align: center;
@@ -84,13 +85,14 @@ nav {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding-right: 0%;
-    padding-left: 0%;
-    padding: 500px; /* COME BACK TO THIS LATER!!!!!!!! */
-    background: linear-gradient(135deg, #f1c40f, #e67e22); /* Slightly softer gradient */
-    color: #1f3a56; /* Dark Blue text */
-    margin-right: 10px;
+    padding: 200px 20px; /* Reasonable padding */
+    background: linear-gradient(135deg, #f1c40f, #e67e22);
+    color: #1f3a56;
+    width: 100vw; /* Full width */
+    margin: 0; /* No margin that could interfere */
+    box-sizing: border-box;
 }
+
 
 .hero h1 {
     font-size: 3rem;
@@ -129,7 +131,7 @@ footer {
     background-color: #1f3a56; /* Dark Blue */
     color: white;
     padding: 20px;
-    margin-top: 50px;
+    margin-top: 40px;
     font-size: 16px;
     position: fixed;
     bottom: 0px;

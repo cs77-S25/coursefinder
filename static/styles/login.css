@@ -4,11 +4,13 @@ main {
     justify-content: center;  /* Center horizontally */
     align-items: center;      /* Center vertically */
     min-height: calc(100vh - 150px); /* Adjust height to fit between header and footer */
+
 }
 
 
 /* General Styles for the Login Page */
 .login-container {
+    align-items: center;
     width: 80%;
     max-width: 500px; /* Reduce max-width for better centering */
     padding: 30px;
@@ -49,6 +51,10 @@ button.cta-button {
     cursor: pointer;
 }
 
+h1{
+    text-align: center;
+}
+
 button.cta-button:hover {
     background-color: #f1c40f;
     color: #1f3a56;
@@ -56,8 +62,8 @@ button.cta-button:hover {
 
 /* Textarea for login */
 textarea {
-    width: 100%;
-    padding: 10px;
+    width: 92%;
+    padding: 15px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
