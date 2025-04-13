@@ -1,9 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import db, Thread, Comment
+from models import db, CourseInfo
+#import openai
+#import OPENAI_API_KEY
+import os
 
 app = Flask(__name__)
+
+# Read API key from file and export it to environment
+with open('api_key.txt', 'r') as file:
+    openai_apikey = file.read().strip()
+os.environ['OPENAI_API_KEY'] = openai_apikey
+
+# Set OpenAI API key for use
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Configure database
 app.config['CACHE_TYPE'] = 'null' # disable if in production environment
@@ -28,9 +39,68 @@ with app.app_context():
 def home():
     return render_template('home.html', active="home")
 
-@app.route('/contribute')
+import os
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+import openai
+
+# === API KEY SETUP ===
+# Read API key from file and export it to environment
+with open('api_key.txt', 'r') as file:
+    openai_apikey = file.read().strip()
+os.environ['OPENAI_API_KEY'] = openai_apikey
+
+# Set OpenAI API key for use
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# === FLASK SETUP ===
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///coursefinder.db'
+db = SQLAlchemy(app)
+
+# === DATABASE MODEL ===
+from sqlalchemy.dialects.postgresql import ARRAY  # If using Postgres; for SQLite, use PickleType or JSON
+from sqlalchemy.types import Float
+
+class CourseFeedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    course_name = db.Column(db.String(100), nullable=False)
+    professor = db.Column(db.String(100))
+    embedding = db.Column(ARRAY(Float), nullable=False)  # Adjust if not using PostgreSQL
+
+# === ROUTE FOR CONTRIBUTE PAGE ===
+@app.route('/contribute', methods=['GET', 'POST'])
 def contribute():
-    return render_template('contribute.html', active="contribute")
+    if request.method == 'POST':
+        # Collect form inputs
+        course_name = request.form.get('course_name')
+        professor = request.form.get('professor')
+        embedding_text = request.form.get('embedding_text')  # Hidden field populated by JS
+
+        # Generate embedding from OpenAI
+        response = openai.Embedding.create(
+            input=embedding_text,
+            model="text-embedding-ada-002"
+        )
+        embedding_vector = response['data'][0]['embedding']
+
+        # Save to DB
+        new_feedback = CourseFeedback(
+            course_name=course_name,
+            professor=professor,
+            embedding=embedding_vector
+        )
+        db.session.add(new_feedback)
+        db.session.commit()
+
+        return redirect(url_for('contribute'))
+
+    return render_template('contribute.html')
+
+
+#@app.route('/contribute')
+#def contribute():
+#    return render_template('contribute.html', active="contribute")
 
 @app.route('/quiz')
 def quiz():
