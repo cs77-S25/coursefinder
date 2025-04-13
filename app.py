@@ -2,19 +2,16 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import db, CourseInfo
-#import openai
-#import OPENAI_API_KEY
+from openai import OpenAI
 import os
+
+client = OpenAI()
 
 app = Flask(__name__)
 
-# Read API key from file and export it to environment
-with open('api_key.txt', 'r') as file:
-    openai_apikey = file.read().strip()
-os.environ['OPENAI_API_KEY'] = openai_apikey
 
 # Set OpenAI API key for use
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client.api_key = os.getenv("OPENAI_API_KEY")
 
 # Configure database
 app.config['CACHE_TYPE'] = 'null' # disable if in production environment
@@ -27,9 +24,6 @@ with open('api_key.txt', 'r') as file:
     openai_apikey = file.read().strip()
 os.environ['OPENAI_API_KEY'] = openai_apikey
 
-# Set OpenAI API key for use
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
 # Enable CORS
 CORS(app)
 
@@ -41,6 +35,8 @@ with app.app_context():
     # Note: create_all does NOT update tables if they are already in the database. 
     # If you change a model’s columns, use a migration library like Alembic with Flask-Alembic 
     # or Flask-Migrate to generate migrations that update the database schema.
+
+
     db.create_all()
 
 @app.route('/')
@@ -51,17 +47,32 @@ def home():
 @app.route('/contribute', methods=['GET', 'POST'])
 def contribute():
     if request.method == 'POST':
-        # generateContribution()
-        
+        # Get form fields
+        course_name = request.form.get('course_name')
+        professor = request.form.get('professor')
+        embedding_text = request.form.get('embedding_text')  # From hidden field via JS
 
-        #return redirect(url_for('contribute'))
+        # Generate embedding
+        response = client.embeddings.create( 
+            input=embedding_text, 
+            model="text-embedding-ada-002" 
+        ) 
+        embedding_vector = response.data[0].embedding
+
+        # Save to DB using JSON format
+        new_feedback = CourseInfo(
+            course_name=course_name,
+            professor=professor
+        )
+        new_feedback.set_embedding(embedding_vector)
+
+        db.session.add(new_feedback)
+        db.session.commit()
+
+        return redirect(url_for('home'))
 
     return render_template('contribute.html', active="contribute")
 
-
-#@app.route('/contribute')
-#def contribute():
-#    return render_template('contribute.html', active="contribute")
 
 @app.route('/quiz')
 def quiz():

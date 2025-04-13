@@ -7,17 +7,21 @@ import OPENAI_API_KEY
 import os
 
 def generateContribution():
-     # Collect form inputs
+    # Collect form inputs
     course_name = request.form.get('course_name')
     professor = request.form.get('professor')
     embedding_text = request.form.get('embedding_text')  # Hidden field populated by JS
 
     # Generate embedding from OpenAI
-    response = openai.Embedding.create(
-        input=embedding_text,
-        model="text-embedding-ada-002"
-    )
     embedding_vector = response['data'][0]['embedding']
+    new_feedback = CourseFeedback(
+        course_name=course_name,
+        professor=professor
+    )
+new_feedback.set_embedding(embedding_vector)
+
+
+
 
     # Save to DB
     new_feedback = CourseFeedback(

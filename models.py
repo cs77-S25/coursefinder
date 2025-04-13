@@ -1,13 +1,22 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
+import json
 
 db = SQLAlchemy()
 
 class CourseInfo(db.Model):
+    __tablename__ = 'course_info'
     id = db.Column(db.Integer, primary_key=True)
-    course_name = db.Column(db.String(100), nullable=False)
-    professor = db.Column(db.String(100), nullable=True)
-    embedding = db.Column(ARRAY(db.Float), nullable=False)
+    course_name = db.Column(db.String(120), nullable=False)
+    professor = db.Column(db.String(120), nullable=False)
+    embedding = db.Column(db.Text, nullable=False)  # stored as JSON string
+
+    def set_embedding(self, vector):
+        self.embedding = json.dumps(vector)
+
+    def get_embedding(self):
+        return json.loads(self.embedding)
+
     
     def __repr__(self) -> str:
         string = f"ID: {self.id}, Title: {self.title}, Content: {self.content}, Created_At: {self.created_at}, Comments: {self.comments}"
