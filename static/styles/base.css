@@ -85,10 +85,11 @@ nav {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 200px 20px; /* Reasonable padding */
+    padding: 250px 200px; /* Reasonable padding */
     background: linear-gradient(135deg, #f1c40f, #e67e22);
     color: #1f3a56;
     width: 100vw; /* Full width */
+    height: max-content;
     margin: 0; /* No margin that could interfere */
     box-sizing: border-box;
 }
@@ -130,11 +131,9 @@ footer {
     text-align: center;
     background-color: #1f3a56; /* Dark Blue */
     color: white;
-    padding: 20px;
-    margin-top: 40px;
-    font-size: 16px;
-    position: fixed;
-    bottom: 0px;
+    padding: 10px;
+    margin-top: 30px;
+    font-size: 14px;
     width: 100%;
 }
 
@@ -192,7 +191,7 @@ textarea {
 button.cta-button {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     font-size: 1.2rem;
     background-color: #1f3a56;
     color: white;

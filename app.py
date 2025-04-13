@@ -5,13 +5,7 @@ from models import db, CourseInfo
 from openai import OpenAI
 import os
 
-client = OpenAI()
-
 app = Flask(__name__)
-
-
-# Set OpenAI API key for use
-client.api_key = os.getenv("OPENAI_API_KEY")
 
 # Configure database
 app.config['CACHE_TYPE'] = 'null' # disable if in production environment
@@ -23,6 +17,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 with open('api_key.txt', 'r') as file:
     openai_apikey = file.read().strip()
 os.environ['OPENAI_API_KEY'] = openai_apikey
+
+#have the client pick up the OpenAI environmental variable
+client = OpenAI()
+
+# Set OpenAI API key for use
+client.api_key = os.getenv("OPENAI_API_KEY")
 
 # Enable CORS
 CORS(app)
@@ -43,7 +43,7 @@ with app.app_context():
 def home():
     return render_template('home.html', active="home")
 
-# ROUTE FOR CONTRIBUTE PAGE 
+# Multipurpose route for the contribute page 
 @app.route('/contribute', methods=['GET', 'POST'])
 def contribute():
     if request.method == 'POST':
