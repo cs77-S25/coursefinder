@@ -2,21 +2,25 @@
 
 {% block content %}
 <main>
-    <div class="login-containter">
+    <div class="login-container">
         <h1>Login or Sign Up Here</h1>
         <form action="/login" method="POST">
             <div class="question">
-                <label for="login">To review courses or take the quiz, create an account</label>
-                <textarea id="login" name="login" rows="1" placeholder="Enter Swarthmore email (ex. 'chanson2@swarthmore.edu')"></textarea>
+                <label for="signup_email">To review courses or take the quiz, create an account</label>
+                <input type="text" id="signup_email" name="signup_email" placeholder="Enter Swarthmore email (e.g., chanson2@swarthmore.edu)">
             </div>
             <button type="submit" class="cta-button">Sign Up</button>
+
             <p>OR</p>
+
             <div class="question">
-                <label for="login">Returning user? Enter your Swarthmore ID prefix to login</label>
-                <textarea id="login" name="login" rows="1" placeholder="Enter Swarthmore ID prefix (ex. 'chanson2')"></textarea>
+                <label for="login_id">Returning user? Enter your Swarthmore ID prefix to login</label>
+                <input type="text" id="login_id" name="login_id" placeholder="Enter Swarthmore ID prefix (e.g., chanson2)">
             </div>
             <button type="submit" class="cta-button">Login</button>
         </form>
     </div>
 </main>
 {% endblock %}
+
+

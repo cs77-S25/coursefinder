@@ -100,36 +100,36 @@ def quiz():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user_input = request.form.get('login')  # Get user input from form
+        # Get user input from the form
+        signup_email = request.form.get('signup_email')  # For sign up
+        login_id = request.form.get('login_id')  # For login
 
-        # Check if the input is an email (new user)
-        if '@' in user_input:
-            # It's an email address, so creating a new user
-            user_email = user_input
+        # Handle sign-up case (email input)
+        if signup_email:
+            user_email = signup_email
             # Check if email already exists
             existing_user = Student.query.filter_by(email=user_email).first()
             if existing_user:
-                # User exists, login them directly
+                # User exists, log them in directly
                 session['user_email'] = existing_user.email
                 session['user_id'] = existing_user.id
                 return redirect(url_for('home'))  # Redirect to home or a dashboard
-
             else:
-                # Create a new user; first grab username for db init from email 
-                new_user = Student(username=user_email.split('@')[0], email=user_email) 
-                db.session.add(new_user)
+                # Create a new user
+                new_user = Student(username=user_email.split('@')[0], email=user_email)
+                db.session.add(new_user) #add newly created user to session
                 db.session.commit()
-                session['user_email'] = new_user.email
+                session['user_email'] = new_user.email #update email and user id
                 session['user_id'] = new_user.id
                 return redirect(url_for('home'))  # Redirect to home or a dashboard
-
-        else:
-            # It's a username, so we're logging in a returning user
-            username = user_input
+        
+        # Handle login case (username input/returning user)
+        elif login_id:
+            username = login_id
             existing_user = Student.query.filter_by(username=username).first()
 
             if existing_user:
-                # User exists, login them directly
+                # User exists, log them in directly
                 session['user_email'] = existing_user.email
                 session['user_id'] = existing_user.id
                 return redirect(url_for('home'))  # Redirect to home or a dashboard
@@ -138,6 +138,12 @@ def login():
                 flash("User not found. Please sign up.", "danger")
                 return render_template('login.html', active="login")
 
+        # If no input is provided
+        flash("Please enter a valid email or username to continue.", "danger")
+        return render_template('login.html', active="login")
+
     return render_template('login.html', active="login")
+
+
 if __name__ == '__main__':
     app.run(debug=True)

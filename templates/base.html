@@ -8,27 +8,28 @@
     <script src="{{ url_for('static', filename='js/base.js') }}" defer></script> 
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="CourseFinder Logo">
-            </div>
-            <ul class="nav-links">  
-                <li><a href="{{ url_for('home') }}" {% if active=="home" %} class="active" {% endif %}>Home</a></li>   
-                <li><a href="{{ url_for('login') }}" {% if active=="login" %} class="active" {% endif %}>Login</a></li>
-                <li><a href="{{ url_for('contribute') }}" {% if active=="contribute" %} class="active" {% endif %}>Contribute</a></li>
-                <li><a href="{{ url_for('quiz') }}" {% if active=="quiz" %} class="active" {% endif %} {% if active=="home" %} hidden="true" {% endif %}>Take the Quiz</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <div class="page-wrapper">
+        <header>
+            <nav>
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="CourseFinder Logo">
+                </div>
+                <ul class="nav-links">  
+                    <li><a href="{{ url_for('home') }}" {% if active=="home" %} class="active" {% endif %}>Home</a></li>   
+                    <li><a href="{{ url_for('login') }}" {% if active=="login" %} class="active" {% endif %}>Login</a></li>
+                    <li><a href="{{ url_for('contribute') }}" {% if active=="contribute" %} class="active" {% endif %}>Contribute</a></li>
+                    <li><a href="{{ url_for('quiz') }}" {% if active=="quiz" %} class="active" {% endif %} {% if active=="home" %} hidden="true" {% endif %}>Take the Quiz</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <footer>
-        <p>&copy; 2025 CourseFinder. All rights reserved.</p>
-    </footer>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; 2025 CourseFinder. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
-

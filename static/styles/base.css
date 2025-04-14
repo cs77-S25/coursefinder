@@ -1,13 +1,25 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif;
     background-color: #f9f9f9; /* Softer background color */
     color: #2c3e50; /* Slightly darker text for better readability */
     align-items: center;
     overflow-x: hidden; 
 }
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Let <main> expand */
+main {
+    flex: 1;
+}
+
 h4{
     text-align: center;
 }
@@ -126,15 +138,16 @@ nav {
     border: 2px solid #1f3a56; /* Dark Blue border */
 }
 
-/* Footer */
+/* Footer flows naturally at bottom */
 footer {
-    text-align: center;
-    background-color: #1f3a56; /* Dark Blue */
+    background: #1f3a56;
     color: white;
-    padding: 10px;
-    margin-top: 30px;
-    font-size: 14px;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    padding: 1rem;
+    text-align: center;
 }
 
 /* Responsive Design */

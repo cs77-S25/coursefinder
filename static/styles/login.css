@@ -1,74 +1,78 @@
-/* Centering the login container inside the main section */
+/* Main section to center login box */
 main {
     display: flex;
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
-    min-height: calc(100vh - 150px); /* Adjust height to fit between header and footer */
-
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* leave room for footer/nav */
+    padding: 20px;
 }
 
-
-/* General Styles for the Login Page */
+/* Login box styling */
 .login-container {
-    align-items: center;
-    width: 80%;
-    max-width: 500px; /* Reduce max-width for better centering */
+    width: 100%;
+    max-width: 420px;
     padding: 30px;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Ensure text is centered */
-}
-
-.login-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    
 }
 
-/* Question Styles */
+.login-container form p {
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+/* Headings */
+.login-container h1 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+/* Question block */
 .question {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-label {
+/* Label styling */
+.login-container label {
     display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+/* Text Inputs */
+.login-container input[type="text"],
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: 80%;
+    max-width: 280px;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto 15px auto;
+    box-sizing: border-box;
+}
+
+/* CTA button */
+.login-container button.cta-button {
+    width: 80%;
+    max-width: 280px;
+    padding: 12px;
     font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-/* Submit Button */
-button.cta-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2rem;
     background-color: #1f3a56;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    margin: 10px auto;
+    display: block;
+    box-sizing: border-box;
 }
 
-h1{
-    text-align: center;
-}
-
-button.cta-button:hover {
+.login-container button.cta-button:hover {
     background-color: #f1c40f;
     color: #1f3a56;
 }
-
-/* Textarea for login */
-textarea {
-    width: 92%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    display: block;
-    margin: 0 auto;
-}
-
