@@ -37,6 +37,8 @@ with app.app_context():
     # or Flask-Migrate to generate migrations that update the database schema.
 
 
+    #db.drop_all()
+
     db.create_all()
 
 @app.route('/')
@@ -50,6 +52,7 @@ def contribute():
         # Get form fields
         course_name = request.form.get('course_name')
         professor = request.form.get('professor')
+        department = request.form.get('department')
         embedding_text = request.form.get('embedding_text')  # From hidden field via JS
 
         # Generate embedding
@@ -62,6 +65,7 @@ def contribute():
         # Save to DB using JSON format
         new_feedback = CourseInfo(
             course_name=course_name,
+            department=department,
             professor=professor
         )
         new_feedback.set_embedding(embedding_vector)
