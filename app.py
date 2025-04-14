@@ -58,6 +58,10 @@ def contribute():
         department = request.form.get('department')
         embedding_text = request.form.get('embedding_text')  # From hidden field via JS
 
+        '''TODO: Make sure to check if inputted name already 
+        matches to a course in database in CourseInfo section
+        '''
+
         # Generate embedding
         response = client.embeddings.create( 
             input=embedding_text, 
