@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'secret key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Read API key from file and export it to environment
+# Read API key from local file and export it to environment
 with open('api_key.txt', 'r') as file:
     openai_apikey = file.read().strip()
 os.environ['OPENAI_API_KEY'] = openai_apikey
@@ -38,7 +38,6 @@ with app.app_context():
 
     #have the wiping of the database built in for development: 
     db.drop_all()
-
     db.create_all()
 
 @app.route('/')
