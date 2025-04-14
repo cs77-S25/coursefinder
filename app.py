@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import db, CourseInfo
+from models import db, CourseReview, CourseInfo, Student
 from openai import OpenAI
 import os
+from flask import session, flash
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 
@@ -21,9 +23,6 @@ os.environ['OPENAI_API_KEY'] = openai_apikey
 #have the client pick up the OpenAI environmental variable
 client = OpenAI()
 
-# Set OpenAI API key for use
-client.api_key = os.getenv("OPENAI_API_KEY")
-
 # Enable CORS
 CORS(app)
 
@@ -37,7 +36,8 @@ with app.app_context():
     # or Flask-Migrate to generate migrations that update the database schema.
 
 
-    #db.drop_all()
+    #have the wiping of the database built in for development: 
+    db.drop_all()
 
     db.create_all()
 
@@ -48,6 +48,10 @@ def home():
 # Multipurpose route for the contribute page 
 @app.route('/contribute', methods=['GET', 'POST'])
 def contribute():
+    # Check if user is logged in
+    if 'user_email' not in session:
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+    
     if request.method == 'POST':
         # Get form fields
         course_name = request.form.get('course_name')
@@ -70,52 +74,70 @@ def contribute():
         )
         new_feedback.set_embedding(embedding_vector)
 
+        # Add CourseInfo feedback to the session first
         db.session.add(new_feedback)
+        db.session.flush()  # This assigns an ID to new_feedback without committing
+
+        # Create a new review and associate it with the logged-in user
+        new_review = CourseReview(
+            student_id=session['user_id'],  # Use the user_id from session
+            course_id=new_feedback.id
+        )
+        new_review.set_embedding(embedding_vector)
+
+        # Add review to session and commit to the database
+        db.session.add(new_review)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('home'))  # Redirect to home after submission
 
     return render_template('contribute.html', active="contribute")
-
 
 @app.route('/quiz')
 def quiz():
     return render_template('quiz.html', active="quiz")
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        user_input = request.form.get('login')  # Get user input from form
+
+        # Check if the input is an email (new user)
+        if '@' in user_input:
+            # It's an email address, so creating a new user
+            user_email = user_input
+            # Check if email already exists
+            existing_user = Student.query.filter_by(email=user_email).first()
+            if existing_user:
+                # User exists, login them directly
+                session['user_email'] = existing_user.email
+                session['user_id'] = existing_user.id
+                return redirect(url_for('home'))  # Redirect to home or a dashboard
+
+            else:
+                # Create a new user; first grab username for db init from email 
+                new_user = Student(username=user_email.split('@')[0], email=user_email) 
+                db.session.add(new_user)
+                db.session.commit()
+                session['user_email'] = new_user.email
+                session['user_id'] = new_user.id
+                return redirect(url_for('home'))  # Redirect to home or a dashboard
+
+        else:
+            # It's a username, so we're logging in a returning user
+            username = user_input
+            existing_user = Student.query.filter_by(username=username).first()
+
+            if existing_user:
+                # User exists, login them directly
+                session['user_email'] = existing_user.email
+                session['user_id'] = existing_user.id
+                return redirect(url_for('home'))  # Redirect to home or a dashboard
+            else:
+                # User not found, show an error or prompt to sign up
+                flash("User not found. Please sign up.", "danger")
+                return render_template('login.html', active="login")
+
     return render_template('login.html', active="login")
-
-# @app.route('/thread/<int:thread_id>')
-# def thread(thread_id):
-#     thread = Thread.query.get_or_404(thread_id) # returns a 404 error if get fails
-#     print(thread)
-#     return render_template('thread.html', thread=thread) # return the thread object
-
-# @app.route('/new_thread', methods=['POST'])
-# def new_thread():
-#     form = request.get_json()
-#     title = form["title"]
-#     content = form["content"]
-#     if title and content:
-#         new_thread = Thread(title=title, content=content)
-#         db.session.add(new_thread)
-#         db.session.commit()
-#         print(f"Added new thread: {new_thread.serialize()}")
-#         return make_response(jsonify({"success": "true", "thread": new_thread.serialize()}), 200) # return both JSON object and HTTP response status (200: OK)
-
-#     return make_response(jsonify({"success": "false"}), 400) # return both JSON object and HTTP response status (400: bad request)
-
-# @app.route('/comment/<int:thread_id>', methods=['POST'])
-# def comment(thread_id):
-#     thread = Thread.query.get_or_404(thread_id) # returns a 404 error if get fails
-#     comment_text = request.form.get('comment')
-#     if comment_text:
-#         new_comment = Comment(thread_id=thread.id, content=comment_text)
-#         db.session.add(new_comment)
-#         db.session.commit()
-
-#     return redirect(url_for('thread', thread_id=thread_id)) # set variable thread_id to be thread_id
-
 if __name__ == '__main__':
     app.run(debug=True)

@@ -7,22 +7,16 @@
         <form action="/login" method="POST">
             <div class="question">
                 <label for="login">To review courses or take the quiz, create an account</label>
-                <textarea id="login" name="login" rows="1" placeholder="Enter Swarthmore email prefix"></textarea>
+                <textarea id="login" name="login" rows="1" placeholder="Enter Swarthmore email (ex. 'chanson2@swarthmore.edu')"></textarea>
             </div>
             <button type="submit" class="cta-button">Sign Up</button>
-            <p>
-
-            </p>
+            <p>OR</p>
             <div class="question">
                 <label for="login">Returning user? Enter your Swarthmore ID prefix to login</label>
-                <textarea id="login" name="login" rows="1" placeholder="Enter Swat ID prefix (ex. 'student1')"></textarea>
+                <textarea id="login" name="login" rows="1" placeholder="Enter Swarthmore ID prefix (ex. 'chanson2')"></textarea>
             </div>
             <button type="submit" class="cta-button">Login</button>
         </form>
-        
     </div>
 </main>
-
-<!-- Add the necessary links to the CSS and JS files -->
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
 {% endblock %}
