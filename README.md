@@ -4,8 +4,8 @@ Group Members: Elisa Fiore, Callahan Hanson
 Description: CourseFinder is a website and social computing app that allows higher education users to do 
 one of two things: 
 1. Take a personality test to match them with a course in a given department at Swarthmore College
-2. Contribute feedback and descriptive data about a course they have taken to help us build the most 
-expansive database of courses possible for our users 
+2. Contribute feedback and descriptive data about a course they have taken to help us build an 
+expansive database of courses possible for our users. 
 ```
 ```text
 Set-Up:
