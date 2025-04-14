@@ -8,6 +8,9 @@ from sqlalchemy.orm import relationship
 db = SQLAlchemy()
 
 # Association table for matched courses (Many-to-Many)
+# A single course can be matched to many users
+# Many users can be matched to a single course
+# Use the id of the student or the id of the course to define relationship
 matched_courses = db.Table('matched_courses',
     db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
     db.Column('course_id', db.Integer, db.ForeignKey('course_info.id'))
