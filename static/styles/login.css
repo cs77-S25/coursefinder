@@ -82,3 +82,26 @@ main {
     background-color: #f1c40f;
     color: #1f3a56;
 }
+
+
+input, textarea, select {
+    width: 78%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+button.cta-button {
+    display: block;
+    text-align: center;
+    width: 78%;
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: #1f3a56;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
 <div class="login-page-center">
     <div class="login-container">
         <h1>Login or Sign Up Here</h1>
         <form action="/login" method="POST">
             <div class="question">
                 <label for="signup_email">To review courses or take the quiz, create an account</label>
-                <input type="text" id="signup_email" name="signup_email" placeholder="Enter Swarthmore email (e.g., chanson2@swarthmore.edu)">
+                <input type="text" id="signup_email" name="signup_email" placeholder="Enter Swarthmore email">
             </div>
             <button type="submit" class="cta-button">Sign Up</button>
 
@@ -15,7 +16,7 @@
 
             <div class="question">
                 <label for="login_id">Returning user? Enter your Swarthmore ID prefix to login</label>
-                <input type="text" id="login_id" name="login_id" placeholder="Enter Swarthmore ID prefix (e.g., chanson2)">
+                <input type="text" id="login_id" name="login_id" placeholder="Enter Swarthmore ID (e.g., efiore1)">
             </div>
             <button type="submit" class="cta-button">Login</button>
         </form>

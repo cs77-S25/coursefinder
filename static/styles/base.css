@@ -189,29 +189,13 @@ label {
     margin-bottom: 10px;
 }
 
-input, textarea, select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+
 
 textarea {
     resize: vertical;
 }
 
-button.cta-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 1.2rem;
-    background-color: #1f3a56;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
 
 button.cta-button:hover {
     background-color: #f1c40f;
