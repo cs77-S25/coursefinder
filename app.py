@@ -96,9 +96,38 @@ def contribute():
 
     return render_template('contribute.html', active="contribute")
 
-@app.route('/quiz')
+@app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
+
+    if 'user_email' not in session:
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+    
+    if request.method == 'POST': 
+        '''
+        TODO: Make sure the department has reviewed courses
+        TODO: call helper cosine similarity function on quiz_vecotor + course_options
+        TODO: have this return the course option in course_options with highest similarity
+        TODO: Redirect to a success.html page with the right course match prominently displayed
+        '''
+        department_preference = request.form.get('department') #take dpt info for db query
+
+        #get a quiz results vector using OpenAI call
+        response = client.embeddings.create( 
+            input=embedding_text, 
+            model="text-embedding-ada-002" 
+        ) 
+        quiz_vector = response.data[0].embedding
+
+        #get all the course options available given the selected department
+        course_options = db.session.query(CourseInfo).filter_by(department=department_preference).all()
+        
+
+
+
+        return redirect(url_for('home'))
+
     return render_template('quiz.html', active="quiz")
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
