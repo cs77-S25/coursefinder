@@ -4,7 +4,6 @@ import json
 from sqlalchemy import Integer, String, DateTime, Text, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
-
 db = SQLAlchemy()
 
 # Association table for matched courses (Many-to-Many)
@@ -42,7 +41,7 @@ class CourseInfo(db.Model):
         self.embedding = json.dumps(vector)
 
     def get_embedding(self):
-        return json.loads(self.embedding)
+        return np.array(json.loads(self.embedding))  # Converts the JSON string back to a numpy array
     
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)

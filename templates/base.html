@@ -19,6 +19,11 @@
                     <li><a href="{{ url_for('login') }}" {% if active=="login" %} class="active" {% endif %}>Login</a></li>
                     <li><a href="{{ url_for('contribute') }}" {% if active=="contribute" %} class="active" {% endif %}>Contribute</a></li>
                     <li><a href="{{ url_for('quiz') }}" {% if active=="quiz" %} class="active" {% endif %} {% if active=="home" %} hidden="true" {% endif %}>Take the Quiz</a></li>
+                    {% if active == "success" and match %}
+                        <li>
+                            <a href="{{ url_for('success', course_id=match.id) }}" class="active">Your Match</a>
+                        </li>
+                    {% endif %}  
                 </ul>
             </nav>
         </header>

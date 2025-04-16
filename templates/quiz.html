@@ -11,7 +11,7 @@
             part is selecting a department; this tells us which department of courses to match 
             you with.
         </h4>
-        <form action="/submit_quiz" method="POST">
+        <form action="{{ url_for('quiz') }}" method="POST">
             <!-- Department Selection -->
             <div class="question">
                 <label for="department">Which department are you looking for courses in?</label>
@@ -74,8 +74,8 @@
                 <ul class="styled-list">
                     <li><input type="radio" id="grades" name="motivation" value="grades" data-descriptor="sarcastic"><label for="grades">Family</label></li>
                     <li><input type="radio" id="curiosity" name="motivation" value="curiosity" data-descriptor="homey"><label for="curiosity">Maple</label></li>
-                    <li><input type="radio" id="career" name="motivation" value="career" data-descriptor=""><label for="hard-working">Oak</label></li>
-                    <li><input type="radio" id="passion" name="motivation" value="passion" data-descriptor=""><label for="bougie">Pine</label></li>
+                    <li><input type="radio" id="career" name="motivation" value="career" data-descriptor="contemplative"><label for="hard-working">Oak</label></li>
+                    <li><input type="radio" id="passion" name="motivation" value="passion" data-descriptor="traditional"><label for="bougie">Pine</label></li>
                 </ul>
             </div>
 

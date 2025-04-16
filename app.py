@@ -6,6 +6,8 @@ from openai import OpenAI
 import os
 from flask import session, flash
 from werkzeug.security import check_password_hash
+from utils import get_best_course_match
+
 
 app = Flask(__name__)
 
@@ -37,7 +39,8 @@ with app.app_context():
 
 
     #have the wiping of the database built in for development: 
-    db.drop_all()
+    
+
     db.create_all()
 
 @app.route('/')
@@ -98,35 +101,51 @@ def contribute():
 
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
-
     if 'user_email' not in session:
-        return redirect(url_for('login'))  # Redirect to login if not logged in
-    
-    if request.method == 'POST': 
-        '''
-        TODO: Make sure the department has reviewed courses
-        TODO: call helper cosine similarity function on quiz_vecotor + course_options
-        TODO: have this return the course option in course_options with highest similarity
-        TODO: Redirect to a success.html page with the right course match prominently displayed
-        '''
-        department_preference = request.form.get('department') #take dpt info for db query
+        return redirect(url_for('login'))
 
-        #get a quiz results vector using OpenAI call
-        response = client.embeddings.create( 
-            input=embedding_text, 
-            model="text-embedding-ada-002" 
-        ) 
+    if request.method == 'POST':
+        department_preference = request.form.get('department')
+
+        # Build embedding text based on quiz form input
+        embedding_text = request.form.get("personality_embedding")
+        if not embedding_text:
+            raise ValueError("Missing input for embedding!")
+
+        response = client.embeddings.create(
+            input=embedding_text,
+            model="text-embedding-ada-002"
+        )
         quiz_vector = response.data[0].embedding
 
-        #get all the course options available given the selected department
         course_options = db.session.query(CourseInfo).filter_by(department=department_preference).all()
-        
+        best_course = get_best_course_match(quiz_vector, course_options)
 
+        if best_course:
+            student = Student.query.get(session['user_id'])
+            if best_course not in student.matched:
+                student.matched.append(best_course)
+                db.session.commit()
 
-
-        return redirect(url_for('home'))
+            # Redirect while passing course_id of best_course db field
+            return redirect(url_for('success', course_id=best_course.id))
+        else:
+            flash("No matching courses found in this department.", "warning")
+            return redirect(url_for('quiz'))
 
     return render_template('quiz.html', active="quiz")
+
+
+@app.route('/success/<int:course_id>')
+def success(course_id):
+    course = CourseInfo.query.get(course_id)
+    if course:
+        return render_template('success.html', active="success", match=course, professor=course.professor)
+
+    else:
+        flash("Course not found.", "error")
+        return redirect(url_for('quiz'))
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -175,6 +194,7 @@ def login():
         return render_template('login.html', active="login")
 
     return render_template('login.html', active="login")
+
 
 
 if __name__ == '__main__':

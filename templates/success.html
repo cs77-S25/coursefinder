@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/success.css') }}">
+    <div class="success-container">
+        <h1>You're All Set!</h1>
+        <h4>Based on your responses, here's your recommended course:</h4>
+        
+        <div class="course-card">
+            <h2>{{ match.course_name }}</h2>
+            <p><strong>Professor:</strong> {{ professor }}</p>
+            <p><strong>Why this course?</strong></p>
+            <p class="course-description">
+                This course aligns with your personality and learning preferences. Students have described it as engaging, supportive, and a great fit for someone like you!
+            </p>
+        </div>
+
+        <a href="/" class="cta-button">Take the Quiz Again</a>
+    </div>
+</main>
+{% endblock %}
