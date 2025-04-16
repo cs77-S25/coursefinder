@@ -1,0 +1,62 @@
+.success-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #2c3e50;
+}
+
+.success-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #1f3a56;
+}
+
+.success-container h4 {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.course-card {
+    background-color: #f9f9f9;
+    border-left: 6px solid #f1c40f;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.course-card h2 {
+    color: #1f3a56;
+    margin-bottom: 10px;
+}
+
+.course-description {
+    margin-top: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Reusing the button style */
+.cta-button {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #1f3a56;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.cta-button:hover {
+    background-color: white;
+    color: #1f3a56;
+    border: 2px solid #1f3a56;
+}
