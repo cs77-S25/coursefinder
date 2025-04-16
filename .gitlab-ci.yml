@@ -1,0 +1,24 @@
+variables:
+  GIT_STRATEGY: clone
+  PROJECT_NAME: ""
+
+default:
+  image: docker:24.0.9
+  services:
+    - name: docker:24.0.9-dind
+  before_script:
+    - docker info
+    - docker login -u $SCCS_REGISTRY_USER -p $SCCS_REGISTRY_TOKEN $SCCS_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker compose -f docker-compose.yml build $PROJECT_NAME
+    - docker push $SCCS_REGISTRY/cs77-s25/$PROJECT_NAME/$PROJECT_NAME:latest
+
+deploy_docker_stage:
+  stage: deploy
+  variables:
+    DOCKER_HOST: $DOCKER_HOST
+  script:
+    - docker stack deploy --with-registry-auth -c ./docker-compose.yml $PROJECT_NAME
