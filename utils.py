@@ -38,6 +38,7 @@ def get_best_course_match(quiz_vector, course_list):
             course_embedding = json.loads(course.embedding) 
             # cosine sim. of each course to quiz vector
             score = cosine_similarity(quiz_vector, course_embedding) 
+            print("%s and %s" % (score, best_score))
             if score > best_score:
                 #iteratively compare for highest similarity score
                 best_score = score 
