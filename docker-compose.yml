@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     volumes: 
-      - coursefinder-dbdata:./instance
+      - coursefinder-dbdata:/instance
     deploy:
       labels:
         - "traefik.enable=true"
