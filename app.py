@@ -7,6 +7,7 @@ import os
 from flask import session, flash
 from werkzeug.security import check_password_hash
 from utils import get_best_course_match
+import numpy as np
 
 
 app = Flask(__name__)
@@ -50,54 +51,69 @@ def home():
 # Multipurpose route for the contribute page 
 @app.route('/contribute', methods=['GET', 'POST'])
 def contribute():
-    # Check if user is logged in
     if 'user_email' not in session:
-        return redirect(url_for('login'))  # Redirect to login if not logged in
+        return redirect(url_for('login'))
     
     if request.method == 'POST':
         # Get form fields
         course_name = request.form.get('course_name')
         professor = request.form.get('professor')
         department = request.form.get('department')
-        embedding_text = request.form.get('embedding_text')  # From hidden field via JS
-
-        '''TODO: Make sure to check if inputted name already 
-        matches to a course in database in CourseInfo section
-        '''
+        embedding_text = request.form.get('embedding_text')
 
         # Generate embedding
         response = client.embeddings.create( 
             input=embedding_text, 
             model="text-embedding-ada-002" 
-        ) 
-        embedding_vector = response.data[0].embedding
-
-        # Save to DB using JSON format
-        new_feedback = CourseInfo(
-            course_name=course_name,
-            department=department,
-            professor=professor
         )
-        new_feedback.set_embedding(embedding_vector)
+        embedding_vector = np.array(response.data[0].embedding)  # Use numpy array for math
 
-        # Add CourseInfo feedback to the session first
-        db.session.add(new_feedback)
-        db.session.flush()  # This assigns an ID to new_feedback without committing
+        # Check if course already exists
+        existing_course = CourseInfo.query.filter_by(course_name=course_name, \
+        department=department, professor=professor).first()
 
-        # Create a new review and associate it with the logged-in user
+        if existing_course:
+            # Update existing course embedding by averaging
+            old_embedding = existing_course.get_embedding()
+            old_count = existing_course.submission_count
+
+            new_average = (old_embedding * old_count + embedding_vector) / (old_count + 1)
+
+            existing_course.set_embedding(new_average.tolist())  # save as JSON serializable list
+            existing_course.submission_count += 1 #increment number of reviews for existing course
+
+            db.session.add(existing_course)
+            db.session.flush()
+            print("Modified existing course")
+
+            course_id = existing_course.id
+        else:
+            # Create new course if it doesn't exist
+            new_course = CourseInfo(
+                course_name=course_name,
+                department=department,
+                professor=professor
+            )
+            new_course.set_embedding(embedding_vector.tolist())
+            db.session.add(new_course)
+            db.session.flush()
+
+            course_id = new_course.id
+
+        # Create a new review and associate it with the user
         new_review = CourseReview(
-            student_id=session['user_id'],  # Use the user_id from session
-            course_id=new_feedback.id
+            student_id=session['user_id'],
+            course_id=course_id
         )
-        new_review.set_embedding(embedding_vector)
+        new_review.set_embedding(embedding_vector.tolist())
 
-        # Add review to session and commit to the database
         db.session.add(new_review)
         db.session.commit()
 
-        return redirect(url_for('home'))  # Redirect to home after submission
+        return redirect(url_for('home'))
 
     return render_template('contribute.html', active="contribute")
+
 
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():

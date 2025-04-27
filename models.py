@@ -3,6 +3,8 @@ from datetime import datetime
 import json
 from sqlalchemy import Integer, String, DateTime, Text, ForeignKey, Table
 from sqlalchemy.orm import relationship
+import numpy as np
+
 
 db = SQLAlchemy()
 
