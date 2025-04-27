@@ -4,3 +4,4 @@ sqlalchemy
 openai
 numpy
 flask_cors
+python-dotenv
