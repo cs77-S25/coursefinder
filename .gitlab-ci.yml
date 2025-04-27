@@ -7,15 +7,15 @@ default:
   services:
     - name: docker:24.0.9-dind
   before_script:
+    - apk add bash curl
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - mv .secure_files/.env .env
     - docker info
     - docker login -u $SCCS_REGISTRY_USER -p $SCCS_REGISTRY_TOKEN $SCCS_REGISTRY
 
 build:
   stage: build
   script:
-    - apk add bash curl
-    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
-    - mv .secure_files/.env .env
     - docker compose -f docker-compose.yml build $PROJECT_NAME
     - docker push $SCCS_REGISTRY/cs77-s25/$PROJECT_NAME/$PROJECT_NAME:latest
 
