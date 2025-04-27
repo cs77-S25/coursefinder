@@ -16,7 +16,7 @@ jobs:
       - uses: action-pack/gitlab-sync@v3
         with:
           # GitLab repo URL
-          url: https://gitlab.sccs.swarthmore.edu/cs77-s25/.git
+          url: https://gitlab.sccs.swarthmore.edu/cs77-s25/coursefinder.git
           # GitLab username
           username: mirrorbot
           # GitLab token

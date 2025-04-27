@@ -1,0 +1,6 @@
+flask_sqlalchemy
+flask
+sqlalchemy
+openai
+numpy
+flask_cors

@@ -8,7 +8,9 @@ from flask import session, flash
 from werkzeug.security import check_password_hash
 from utils import get_best_course_match
 import numpy as np
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -19,9 +21,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Read API key from local file and export it to environment
-with open('api_key.txt', 'r') as file:
-    openai_apikey = file.read().strip()
-os.environ['OPENAI_API_KEY'] = openai_apikey
+#with open('api_key.txt', 'r') as file:
+#    openai_apikey = file.read().strip()
+#os.environ['OPENAI_API_KEY'] = openai_apikey
+#os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 
 #have the client pick up the OpenAI environmental variable
 client = OpenAI()

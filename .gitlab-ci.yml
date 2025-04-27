@@ -1,6 +1,6 @@
 variables:
   GIT_STRATEGY: clone
-  PROJECT_NAME: ""
+  PROJECT_NAME: "coursefinder"
 
 default:
   image: docker:24.0.9
