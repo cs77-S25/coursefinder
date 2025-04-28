@@ -5,8 +5,10 @@ services:
       context: .
       dockerfile: ./Dockerfile
     #environment:
-    #env_file:
-    #  - .env
+    env_file:
+      - .env
+    volumes: 
+      - coursefinder-dbdata:/instance
     deploy:
       labels:
         - "traefik.enable=true"
@@ -25,3 +27,11 @@ networks:
 
   traefik:
     external: true
+
+volumes:
+  coursefinder-dbdata: 
+    name: coursefinder-dbdata
+    driver_opts: 
+      type: nfs
+      o: "nfsvers=4,addr=130.58.218.26,rw,nolock,soft"
+      device: ":/volumes/coursefinder-dbdata"
