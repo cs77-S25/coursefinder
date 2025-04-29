@@ -214,7 +214,10 @@ def login():
 
     return render_template('login.html', active="login")
 
-
+@app.route('/admin', methods=['GET'])
+def admin():
+    courses = CourseInfo.query.all()
+    return render_template('admin.html', courses=courses)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for course in courses  %}
+    {{ course.course_name }}
+    {% endfor %}
+{% endblock %}
+
+
